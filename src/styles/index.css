@@ -1,0 +1,190 @@
+/* Self-hosted fonts (work offline during the live demo) */
+@import "@fontsource-variable/playfair-display";
+@import "@fontsource-variable/playfair-display/wght-italic.css";
+@import "@fontsource-variable/dm-sans";
+@import "@fontsource/dancing-script/600.css";
+
+@import "tailwindcss";
+
+/*
+ * TripFinders design tokens — premium direction.
+ * Warm ivory + deep night navy, one quiet action colour, and Moroccan pigments for tags.
+ * Every text pairing passes WCAG AA. The default Tailwind palette is removed on purpose.
+ */
+@theme {
+  --color-*: initial;
+  --color-white: #ffffff;
+  --color-black: #000000;
+  --color-transparent: transparent;
+  --color-current: currentColor;
+
+  /* Night: cinematic sections, primary buttons */
+  --color-navy: #0c1522;
+  --color-navy-800: #172338;
+  --color-navy-950: #070d16;
+  --color-navy-muted: #a9b3c4;      /* secondary text on navy (≈ 9:1) */
+
+  /* Ivory: page, surfaces, lines */
+  --color-sand: #f6f2eb;
+  --color-sand-200: #ece5d9;
+  --color-surface: #fffdf9;
+  --color-line: #e4dccf;
+
+  --color-ink: #141b26;             /* body text (≈ 16:1) */
+  --color-muted: #5d6573;           /* secondary text (≈ 5.3:1) */
+
+  /* Accents */
+  --color-terracotta: #ad4e2b;      /* prices, highlights (≈ 4.8:1 on ivory) */
+  --color-terracotta-700: #8f3d1f;
+  --color-terracotta-100: #f6e3da;
+  --color-teal: #1e6b65;            /* links, verified badge (≈ 5.6:1) */
+  --color-teal-300: #8fc4be;
+  --color-teal-100: #dcedea;
+  --color-saffron: #e3a73f;         /* stars and key numbers on navy */
+  --color-saffron-600: #b7791f;     /* stars on light backgrounds */
+
+  /* Moroccan pigments: tag pills (always with ink text) */
+  --color-rose: #f3b7c3;            /* Marrakech pink */
+  --color-saffron-200: #f6cf73;     /* saffron */
+  --color-mint: #9ad8bb;            /* zellige green */
+  --color-sky: #b3c1ff;             /* Majorelle, softened */
+  --color-clay: #f2a983;            /* terracotta clay */
+
+  /* Feedback */
+  --color-success: #2e7d4f;
+  --color-danger: #b42318;
+  --color-danger-100: #fde8e6;
+
+  /* Typography roles */
+  --font-sans: "DM Sans Variable", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-serif: "Playfair Display Variable", Georgia, "Times New Roman", serif;
+  --font-script: "Dancing Script", "Brush Script MT", cursive;
+
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-card: 28px;
+
+  --shadow-soft: 0 1px 2px rgb(12 21 34 / 0.04), 0 6px 18px rgb(12 21 34 / 0.06);
+  --shadow-lift: 0 2px 6px rgb(12 21 34 / 0.05), 0 18px 40px rgb(12 21 34 / 0.12);
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+
+  --animate-marquee: marquee 40s linear infinite;
+  --animate-float: float 6s var(--ease-in-out) infinite;
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0) rotate(var(--tilt, 0deg)); }
+    50% { transform: translateY(-10px) rotate(var(--tilt, 0deg)); }
+  }
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    scroll-padding-top: 6rem;
+  }
+
+  body {
+    min-height: 100dvh;
+    overflow-x: clip;
+    background-color: var(--color-sand);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4 {
+    color: inherit;
+    font-weight: 600;
+    line-height: 1.05;
+    letter-spacing: -0.035em;
+    text-wrap: balance;
+  }
+
+  p { text-wrap: pretty; }
+
+  img, svg, video { display: block; max-width: 100%; }
+
+  button { cursor: pointer; }
+
+  :focus-visible {
+    outline: 2px solid var(--color-teal);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+
+  ::selection { background-color: var(--color-saffron-200); color: var(--color-ink); }
+}
+
+@layer components {
+  /* Oversized display type */
+  .display {
+    font-weight: 600;
+    letter-spacing: -0.055em;
+    line-height: 0.92;
+  }
+
+  /* The editorial accent: Playfair italic inside sans headlines */
+  .serif {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    font-variant-numeric: lining-nums;
+  }
+
+  .eyebrow {
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  /* Signature motif: the Moroccan arch. Works for 3:4 portraits (semicircular top). */
+  .arch {
+    border-radius: 50% 50% var(--radius-lg) var(--radius-lg) / 37.5% 37.5% var(--radius-lg) var(--radius-lg);
+    overflow: hidden;
+  }
+
+  .container-page {
+    width: 100%;
+    max-width: 1320px;
+    margin-inline: auto;
+    padding-inline: clamp(1rem, 4vw, 3rem);
+  }
+
+  .tabular { font-variant-numeric: tabular-nums lining-nums; }
+}
+
+/* Scroll reveal (class toggled by <Reveal>); content stays visible without JS or with reduced motion */
+@media (prefers-reduced-motion: no-preference) {
+  .js [data-reveal] {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+  .js [data-reveal].is-in { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Leaflet controls follow the theme */
+.leaflet-container { font-family: var(--font-sans); border-radius: inherit; }

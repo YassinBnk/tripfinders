@@ -1,0 +1,9 @@
+node_modules
+dist
+*.local
+.DS_Store
+.vite
+coverage
+
+# Large source files kept outside the repo
+*.pptx
